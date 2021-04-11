@@ -12,6 +12,10 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+<style>
+.r {background-color:  #CCCCCC; }
+.r {color: #000044;}
+</style>
 
 
 # Introduction
@@ -121,7 +125,7 @@ Make a folder in which you want to build the kraken2 database. We refer to this 
 Download the files `gtdb_names.dmp` and `gtdb_nodes.dmp` mentioned above, or the corresponding `ncbi_` files if you want to use the NCBI taxonomy. The procedure is exactly the same in both cases, and we use the `gtdb_`files in the code examples.
 
 Make the subfolder `$KRAKEN2/taxonomy`. Copy `gtdb_names.dmp` and `gtdb_nodes.dmp` into this:
-```{.bash}
+```{bash, eval=FALSE}
 cp gtdb_names.dmp $KRAKEN2/taxonomy/names.dmp
 cp gtdb_nodes.dmp $KRAKEN2/taxonomy/nodes.dmp
 ```
@@ -131,7 +135,7 @@ Note that the names of the copied files must be `names.dmp` and `nodes.dmp` for 
 
 ## The human genome
 We strongly recommend you also include the human genome in the database as long as your data are from the human gut. Here is the code for including the human genome:
-```{.bash}
+```{bash, eval=FALSE}
 kraken2-build --download-library human --db $KRAKEN2
 ```
 The folder `$KRAKEN2/library` should appear, and inside it, the `human/` subfolder with some data. There should at least be a file named `library.fna`, around 3.1GB, with the human genome sequences. Note that this download may fail, and you may need to repeat this step until it has downloaded completely. It usually takes a few minutes.
@@ -143,13 +147,13 @@ You may also need to use the `--use-ftp` option if the default RSYNC way of down
 ## The HumGut library
 We assume you have extracted the `HumGut.tar.gz` from above into the folder `$FNA`.
 If you include all HumGut genomes, simply write all FASTA-files from this folder into a single uncompressed FASTA file. The latter because kraken2 cannot build from compressed FASTA files. It can be done like this
-```{.bash}
+```{bash, eval=FALSE}
 zcat $FNA/*.fna.gz > HumGut975_library.fna
 ```
 The file `HumGut975_library.fna` should be close to 60GB.
 
 Then you add this to the kraken2 database with
-```{.bash}
+```{bash, eval=FALSE}
 kraken2-build --add-to-library HumGut975_library.fna --db $KRAKEN2
 ```
 A subfolder `$KRAKEN2/library/added` should now appear. Inside it a fasta-file (`.fna`) should appear, containing the library sequences, i.e. should be of the same size as the `HumGut975_library.fna` or whatever file you used.
@@ -164,11 +168,7 @@ read_delim("HumGut.tsv", delim = "\t") %>%
 ok <- file.append("HumGut95_library.fna.gz",
                   file.path("FNA", humgut950.tbl$genome_file))
 ```
-It basically filters the table in `HumGut.tsv` to keep only the rows where you find the *first* occurrence of the unique values in the `cluster95` column. These are the genomes representing the 95% clusters. In `HumGut.tsv` the rows are sorted in descending order by the `prevalence_score` and hence, the first row for each cluster is the genome to keep.
-
-Note that in the above code we assume the file `HumGut.tsv` and the folder `FNA` (with all fasta files) is in the current working directory, please use correct paths if they are elsewhere. 
-
-This code above produces a compressed FASTA file, and you need to uncompress it before you call `kraken2-build`. This file should be around 11GB when uncompressed.
+It basically filters the table in `HumGut.tsv` to keep only the rows where you find the *first* occurrence of the unique values in the `cluster95` column. These are the genomes representing the 95% clusters. In `HumGut.tsv` the rows are sorted in descending order by the `prevalence_score` and hence, the first row for each cluster is the genome to keep. Note that in the above code we assume the file `HumGut.tsv` and the folder `FNA` (with all fasta files) is in the current working directory, please use correct paths if they are elsewhere. This code produces a compressed FASTA file, and you need to uncompress it before you call `kraken2-build`. This file should be around 11GB when uncompressed.
 
 You may of course also select all kinds of other subsets of the HumGut genomes to include in your database, using a similar approach.
 <br>
@@ -176,7 +176,7 @@ You may of course also select all kinds of other subsets of the HumGut genomes t
 
 ## Building
 The last step is just to build the database
-```{.bash}
+```{bash, eval=FALSE}
 kraken2-build --build --threads 20 --db $KRAKEN2
 ```
 Here we used 20 threads. This step is the most time-consuming.
@@ -191,7 +191,7 @@ NOTE: You may run `kraken2-build --clean` to delete files no longer needed in th
 
 # Building a bracken database
 Once you have the kraken2 database, it is straightforward to extend this by building a bracken (https://github.com/jenniferlu717/Bracken) database as well:
-```{.bash}
+```{bash, eval=FALSE}
 bracken-build -d $KRAKEN2 -t 10 -k 35 -l 100
 ```
 Here we used `10` threads, k-mers of length `35` (same as kraken2) and read length `100`. This should add three files to the `$KRAKEN2` folder: database.kraken, database.100mers.kraken, database.100mers.kmer_distrib. See the bracken software GitHub site for more details: https://github.com/jenniferlu717/Bracken.
@@ -208,7 +208,7 @@ Once you have the kraken2 database, it is straightforward to build a krakenUniq 
 First, make a folder for you krakenUniq database, we denote this `$KRAKENUNIQ`.
 
 Next, copy both the `taxonomy/` and the `library/` folders from the kraken2 database to the new folder:
-```{.bash}
+```{bash, eval=FALSE}
 cp -r $KRAKEN2/taxonomy $KRAKENUNIQ
 cp -r $KRAKEN2/library $KRAKENUNIQ
 ```
@@ -218,7 +218,7 @@ Finally, build the krakenUniq database:
 krakenuniq-build --threads 20 --db $KRAKENUNIQ
 ```
 You may free a lot of disk space by running
-```{.bash}
+```{bash, eval=FALSE}
 krakenUniq-build --clean -db $KRAKENUNIQ
 ```
 In my case the full HumGut database was reduced to occupy around 350GB disk space after this step. A similar cleaning may also be done for the `KRAKEN2` database now.

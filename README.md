@@ -16,6 +16,11 @@ Lars Snipen
 -   [Building a bracken database](#building-a-bracken-database)
 -   [Building a krakenUniq database](#building-a-krakenuniq-database)
 
+<style>
+.r {background-color:  #CCCCCC; }
+.r {color: #000044;}
+</style>
+
 # Introduction
 
 The human gut metagenome is the focus of a lot of research in our time.
@@ -240,13 +245,10 @@ where you find the *first* occurrence of the unique values in the
 `cluster95` column. These are the genomes representing the 95% clusters.
 In `HumGut.tsv` the rows are sorted in descending order by the
 `prevalence_score` and hence, the first row for each cluster is the
-genome to keep.
-
-Note that in the above code we assume the file `HumGut.tsv` and the
-folder `FNA` (with all fasta files) is in the current working directory,
-please use correct paths if they are elsewhere.
-
-This code above produces a compressed FASTA file, and you need to
+genome to keep. Note that in the above code we assume the file
+`HumGut.tsv` and the folder `FNA` (with all fasta files) is in the
+current working directory, please use correct paths if they are
+elsewhere. This code produces a compressed FASTA file, and you need to
 uncompress it before you call `kraken2-build`. This file should be
 around 11GB when uncompressed.
 
