@@ -4,7 +4,6 @@ author: "Lars Snipen"
 output: 
   github_document:
     html_preview: yes
-    number_sections: true
     toc: true
     toc_depth: 2
 ---

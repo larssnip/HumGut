@@ -2,21 +2,21 @@ HumGut - a human gut genome collection
 ================
 Lars Snipen
 
--   [1 Introduction](#introduction)
--   [2 Download HumGut](#download-humgut)
-    -   [2.1 FASTA files](#fasta-files)
-    -   [2.2 Metadata tables](#metadata-tables)
--   [3 Taxonomy](#taxonomy)
-    -   [3.1 Taxonomy tree](#taxonomy-tree)
--   [4 Building a kraken2 database](#building-a-kraken2-database)
-    -   [4.1 The taxonomy](#the-taxonomy)
-    -   [4.2 The human genome](#the-human-genome)
-    -   [4.3 The HumGut library](#the-humgut-library)
-    -   [4.4 Building](#building)
--   [5 Building a bracken database](#building-a-bracken-database)
--   [6 Building a krakenUniq database](#building-a-krakenuniq-database)
+-   [Introduction](#introduction)
+-   [Download HumGut](#download-humgut)
+    -   [FASTA files](#fasta-files)
+    -   [Metadata tables](#metadata-tables)
+-   [Taxonomy](#taxonomy)
+    -   [Taxonomy tree](#taxonomy-tree)
+-   [Building a kraken2 database](#building-a-kraken2-database)
+    -   [The taxonomy](#the-taxonomy)
+    -   [The human genome](#the-human-genome)
+    -   [The HumGut library](#the-humgut-library)
+    -   [Building](#building)
+-   [Building a bracken database](#building-a-bracken-database)
+-   [Building a krakenUniq database](#building-a-krakenuniq-database)
 
-# 1 Introduction
+# Introduction
 
 The human gut metagenome is the focus of a lot of research in our time.
 From this site you can download the *HumGut genome collection* and
@@ -35,11 +35,11 @@ as well as the underlying data repositories at EMBL-EBI
 (<https://www.ebi.ac.uk/metagenomics/>) and NCBI
 (<https://www.ncbi.nlm.nih.gov/genome>). <br> <br>
 
-# 2 Download HumGut
+# Download HumGut
 
 <br>
 
-## 2.1 FASTA files
+## FASTA files
 
 The HumGut collection contains 30,691 genomes. In this compressed
 archive:
@@ -51,7 +51,7 @@ Header-lines equipped with the proper text for building a kraken2 or
 krakenUniq database, see sections below for more details on this. This
 archive is roughly 18GB. <br>
 
-## 2.2 Metadata tables
+## Metadata tables
 
 The tab-separated text file
 
@@ -96,7 +96,7 @@ not provide the FASTA files for all these genomes at this website, since
 they are publicly available elsewhere. The FTP addresses in the column
 `ftp_download` shows where each genome is found. <br> <br>
 
-# 3 Taxonomy
+# Taxonomy
 
 One obvious use of the HumGut collection is to assign some taxonomy to
 the reads you have after sequencing a human gut metagenome. In the table
@@ -111,7 +111,7 @@ not contain all ranks, or the HumGut genome is simply too different from
 any species listed by GTDB or NCBI, and has been assigned directly under
 some higher rank. <br>
 
-## 3.1 Taxonomy tree
+## Taxonomy tree
 
 In order to describe the taxonomy tree, we have chosen to use the data
 structures used by NCBI Taxonomy
@@ -144,7 +144,7 @@ Both taxonomies above are from January 2021. This changes slowly over
 time. We will make efforts to update this at regular intervals. <br>
 <br>
 
-# 4 Building a kraken2 database
+# Building a kraken2 database
 
 The kraken2 software (<https://github.com/DerrickWood/kraken2>) is a
 popular tool for making taxonomic classification of metagenome reads.
@@ -155,7 +155,7 @@ we describe a procedure for building such a kraken2 database.
 Make a folder in which you want to build the kraken2 database. We refer
 to this as `$KRAKEN2` here. <br>
 
-## 4.1 The taxonomy
+## The taxonomy
 
 Download the files `gtdb_names.dmp` and `gtdb_nodes.dmp` mentioned
 above, or the corresponding `ncbi_` files if you want to use the NCBI
@@ -173,7 +173,7 @@ cp gtdb_nodes.dmp $KRAKEN2/taxonomy/nodes.dmp
 Note that the names of the copied files must be `names.dmp` and
 `nodes.dmp` for kraken2 to recognize them. <br>
 
-## 4.2 The human genome
+## The human genome
 
 We strongly recommend you also include the human genome in the database
 as long as your data are from the human gut. Here is the code for
@@ -192,7 +192,7 @@ has downloaded completely. It usually takes a few minutes.
 You may also need to use the `--use-ftp` option if the default RSYNC way
 of downloading is unavailable. <br>
 
-## 4.3 The HumGut library
+## The HumGut library
 
 We assume you have extracted the `HumGut.tar.gz` from above into the
 folder `$FNA`. If you include all HumGut genomes, simply write all
@@ -253,7 +253,7 @@ around 11GB when uncompressed.
 You may of course also select all kinds of other subsets of the HumGut
 genomes to include in your database, using a similar approach. <br>
 
-## 4.4 Building
+## Building
 
 The last step is just to build the database
 
@@ -271,7 +271,7 @@ needed in the `$KRAKEN` folder, but *do not* do this yet if you intend
 to also build a bracken and/or krakenUniq database (see below), as some
 of these files will still be needed. <br> <br>
 
-# 5 Building a bracken database
+# Building a bracken database
 
 Once you have the kraken2 database, it is straightforward to extend this
 by building a bracken (<https://github.com/jenniferlu717/Bracken>)
@@ -287,7 +287,7 @@ database.kraken, database.100mers.kraken,
 database.100mers.kmer\_distrib. See the bracken software GitHub site for
 more details: <https://github.com/jenniferlu717/Bracken>. <br> <br>
 
-# 6 Building a krakenUniq database
+# Building a krakenUniq database
 
 As an alternative to the kraken2/bracken approach, you may also be
 interested in using the software krakenUniq
