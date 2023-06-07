@@ -36,7 +36,7 @@ as well as the underlying data repositories at EMBL-EBI (https://www.ebi.ac.uk/m
 ## FASTA files
 The HumGut collection contains 30,691 genomes. In this compressed archive:
 
-* **[HumGut.tar.gz](http://arken.nmbu.no/~larssn/humgut/HumGut.tar.gz)**
+* **[HumGut.tar.gz](https://arken.nmbu.no/~larssn/humgut/HumGut.tar.gz)**
 
 you find the compressed FASTA files, one for each genome. All files have Header-lines equipped with the proper text for building a kraken2 or krakenUniq database, see sections below for more details on this. This archive is roughly 18GB.
 <br>
@@ -45,7 +45,7 @@ you find the compressed FASTA files, one for each genome. All files have Header-
 ## Metadata tables
 The tab-separated text file
 
-* **[HumGut.tsv](http://arken.nmbu.no/~larssn/humgut/HumGut.tsv)**
+* **[HumGut.tsv](https://arken.nmbu.no/~larssn/humgut/HumGut.tsv)**
 
 lists metadata about each HumGut genome (30,691 rows). Below you find a description of all columns.
 
@@ -77,7 +77,7 @@ Column                 | Description
 
 The tab-separated text file
 
-* **[All_genomes.tsv](http://arken.nmbu.no/~larssn/humgut/All_genomes.tsv)**
+* **[All_genomes.tsv](https://arken.nmbu.no/~larssn/humgut/All_genomes.tsv)**
 
 lists metadata about all the 381,779 genomes used for obtaining the HumGut clusters (381,779 rows). The columns are a subset of those in the above table, see the above description of column names. Note that we do not provide the FASTA files for all these genomes at this website, since they are publicly available elsewhere. The FTP addresses in the column `ftp_download` shows where each genome is found.
 <br>
@@ -95,13 +95,13 @@ In order to describe the taxonomy tree, we have chosen to use the data structure
 
 Here you can download the two files needed for using the GTDB taxonomy:
 
-* **[gtdb_names.dmp](http://arken.nmbu.no/~larssn/humgut/gtdb_names.dmp)**
-* **[gtdb_nodes.dmp](http://arken.nmbu.no/~larssn/humgut/gtdb_nodes.dmp)**
+* **[gtdb_names.dmp](https://arken.nmbu.no/~larssn/humgut/gtdb_names.dmp)**
+* **[gtdb_nodes.dmp](https://arken.nmbu.no/~larssn/humgut/gtdb_nodes.dmp)**
 
 Here you can download the files needed for using the NCBI taxonomy:
 
-* **[ncbi_names.dmp](http://arken.nmbu.no/~larssn/humgut/ncbi_names.dmp)**
-* **[ncbi_nodes.dmp](http://arken.nmbu.no/~larssn/humgut/ncbi_nodes.dmp)**
+* **[ncbi_names.dmp](https://arken.nmbu.no/~larssn/humgut/ncbi_names.dmp)**
+* **[ncbi_nodes.dmp](https://arken.nmbu.no/~larssn/humgut/ncbi_nodes.dmp)**
 
 Both these sets of files contain the `HumGut_tax_id` for all HumGut genomes. Their parents are the corresponding `gtdbtk_tax_id` or `ncbi_tax_id`. The files then contain the branches leading down to these taxa. Note that the files *do not* contain the full taxonomy for all taxa in either database. They have been pruned to only contain the relevant branches leading to some HumGut genome.
 

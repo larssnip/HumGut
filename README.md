@@ -2,19 +2,25 @@ HumGut - a human gut genome collection
 ================
 Lars Snipen
 
--   [Introduction](#introduction)
--   [Download HumGut](#download-humgut)
-    -   [FASTA files](#fasta-files)
-    -   [Metadata tables](#metadata-tables)
--   [Taxonomy](#taxonomy)
-    -   [Taxonomy tree](#taxonomy-tree)
--   [Building a kraken2 database](#building-a-kraken2-database)
-    -   [The taxonomy](#the-taxonomy)
-    -   [The human genome](#the-human-genome)
-    -   [The HumGut library](#the-humgut-library)
-    -   [Building](#building)
--   [Building a bracken database](#building-a-bracken-database)
--   [Building a krakenUniq database](#building-a-krakenuniq-database)
+- <a href="#introduction" id="toc-introduction">Introduction</a>
+- <a href="#download-humgut" id="toc-download-humgut">Download HumGut</a>
+  - <a href="#fasta-files" id="toc-fasta-files">FASTA files</a>
+  - <a href="#metadata-tables" id="toc-metadata-tables">Metadata tables</a>
+- <a href="#taxonomy" id="toc-taxonomy">Taxonomy</a>
+  - <a href="#taxonomy-tree" id="toc-taxonomy-tree">Taxonomy tree</a>
+- <a href="#building-a-kraken2-database"
+  id="toc-building-a-kraken2-database">Building a kraken2 database</a>
+  - <a href="#the-taxonomy" id="toc-the-taxonomy">The taxonomy</a>
+  - <a href="#the-human-genome" id="toc-the-human-genome">The human
+    genome</a>
+  - <a href="#the-humgut-library" id="toc-the-humgut-library">The HumGut
+    library</a>
+  - <a href="#building" id="toc-building">Building</a>
+- <a href="#building-a-bracken-database"
+  id="toc-building-a-bracken-database">Building a bracken database</a>
+- <a href="#building-a-krakenuniq-database"
+  id="toc-building-a-krakenuniq-database">Building a krakenUniq
+  database</a>
 
 <style>
 .r {background-color:  #CCCCCC; }
@@ -49,7 +55,7 @@ as well as the underlying data repositories at EMBL-EBI
 The HumGut collection contains 30,691 genomes. In this compressed
 archive:
 
--   **[HumGut.tar.gz](http://arken.nmbu.no/~larssn/humgut/HumGut.tar.gz)**
+- **[HumGut.tar.gz](https://arken.nmbu.no/~larssn/humgut/HumGut.tar.gz)**
 
 you find the compressed FASTA files, one for each genome. All files have
 Header-lines equipped with the proper text for building a kraken2 or
@@ -60,39 +66,39 @@ archive is roughly 18GB. <br>
 
 The tab-separated text file
 
--   **[HumGut.tsv](http://arken.nmbu.no/~larssn/humgut/HumGut.tsv)**
+- **[HumGut.tsv](https://arken.nmbu.no/~larssn/humgut/HumGut.tsv)**
 
 lists metadata about each HumGut genome (30,691 rows). Below you find a
 description of all columns.
 
-| Column                 | Description                                                                                                                                                                                                                                                                                                                                                                                                |
-|------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `HumGut_name`          | Unique HumGut name for each genome.                                                                                                                                                                                                                                                                                                                                                                        |
-| `HumGut_tax_id`        | Unique HumGut identifier for each genome. These are integers from 3 000 000 and up, a choice made to not interfere with the NCBI Taxonomy database integers.                                                                                                                                                                                                                                               |
-| `cluster975`           | The highest resolution cluster this genome belongs to (97.5% sequence identity).                                                                                                                                                                                                                                                                                                                           |
-| `cluster95`            | The coarser resolution cluster this genome belongs to (95% sequence identity).                                                                                                                                                                                                                                                                                                                             |
-| `gtdbtk_tax_id`        | GTDB-tk genome taxonomy ID. Note that the GTDB database (<https://gtdb.ecogenomic.org/>) has no such integer identifiers, and we have just artificially created some here. This is required for building kraken2/bracken/krakenUniq databases using this taxonomy. These integers are from 4 000 000 and up, a choice made to not interfere with the NCBI Taxonomy or the HumGut\_tax\_id mentioned above. |
-| `gtdbtk_organism_name` | Genome name as given by GTDB-tk.                                                                                                                                                                                                                                                                                                                                                                           |
-| `gtdbtk_taxonomy`      | The full GTDB-tk taxonomy, from domain and down.                                                                                                                                                                                                                                                                                                                                                           |
-| `ncbi_tax_id`          | The taxonomy identifier from the NCBI Taxonomy database (<https://www.ncbi.nlm.nih.gov/taxonomy/>).                                                                                                                                                                                                                                                                                                        |
-| `ncbi_organism_name`   | Genome name at the NCBI Taxonomy database.                                                                                                                                                                                                                                                                                                                                                                 |
-| `ncbi_rank`            | The rank at the NCBI Taxonomy database.                                                                                                                                                                                                                                                                                                                                                                    |
-| `prevalence_score`     | The average sequence identity across 3,534 healthy human gut metagenomes.                                                                                                                                                                                                                                                                                                                                  |
-| `metagenomes_present`  | The number of metagenomes where the genome was found present, using ≥ 95% sequence identity as a threshold.                                                                                                                                                                                                                                                                                                |
-| `completeness`         | The estimated completeness (%) of the genome.                                                                                                                                                                                                                                                                                                                                                              |
-| `contamination`        | The estimated contamination (%) of the genome.                                                                                                                                                                                                                                                                                                                                                             |
-| `GC`                   | Genome GC content.                                                                                                                                                                                                                                                                                                                                                                                         |
-| `genome_size`          | Number of base pairs in genome.                                                                                                                                                                                                                                                                                                                                                                            |
-| `source`               | Either RefSeq (<https://ftp.ncbi.nlm.nih.gov/genomes/refseq/>) or UHGG (<https://www.ebi.ac.uk/metagenomics/>)                                                                                                                                                                                                                                                                                             |
-| `genome_type`          | The completion level as listed in RefSeq, or MAG (all UHGG genomes).                                                                                                                                                                                                                                                                                                                                       |
-| `cluster975_size`      | Number of genomes in the same cluster of the highest resolution (97.5%).                                                                                                                                                                                                                                                                                                                                   |
-| `cluster95_size`       | Number of genomes in the same coarse cluster (95%).                                                                                                                                                                                                                                                                                                                                                        |
-| `genome_file`          | The name of the FASTA file in the archive **HumGut.tar.gz** from above.                                                                                                                                                                                                                                                                                                                                    |
-| `ftp_download`         | The ftp address from where we downloaded the genome.                                                                                                                                                                                                                                                                                                                                                       |
+| Column                 | Description                                                                                                                                                                                                                                                                                                                                                                                              |
+|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `HumGut_name`          | Unique HumGut name for each genome.                                                                                                                                                                                                                                                                                                                                                                      |
+| `HumGut_tax_id`        | Unique HumGut identifier for each genome. These are integers from 3 000 000 and up, a choice made to not interfere with the NCBI Taxonomy database integers.                                                                                                                                                                                                                                             |
+| `cluster975`           | The highest resolution cluster this genome belongs to (97.5% sequence identity).                                                                                                                                                                                                                                                                                                                         |
+| `cluster95`            | The coarser resolution cluster this genome belongs to (95% sequence identity).                                                                                                                                                                                                                                                                                                                           |
+| `gtdbtk_tax_id`        | GTDB-tk genome taxonomy ID. Note that the GTDB database (<https://gtdb.ecogenomic.org/>) has no such integer identifiers, and we have just artificially created some here. This is required for building kraken2/bracken/krakenUniq databases using this taxonomy. These integers are from 4 000 000 and up, a choice made to not interfere with the NCBI Taxonomy or the HumGut_tax_id mentioned above. |
+| `gtdbtk_organism_name` | Genome name as given by GTDB-tk.                                                                                                                                                                                                                                                                                                                                                                         |
+| `gtdbtk_taxonomy`      | The full GTDB-tk taxonomy, from domain and down.                                                                                                                                                                                                                                                                                                                                                         |
+| `ncbi_tax_id`          | The taxonomy identifier from the NCBI Taxonomy database (<https://www.ncbi.nlm.nih.gov/taxonomy/>).                                                                                                                                                                                                                                                                                                      |
+| `ncbi_organism_name`   | Genome name at the NCBI Taxonomy database.                                                                                                                                                                                                                                                                                                                                                               |
+| `ncbi_rank`            | The rank at the NCBI Taxonomy database.                                                                                                                                                                                                                                                                                                                                                                  |
+| `prevalence_score`     | The average sequence identity across 3,534 healthy human gut metagenomes.                                                                                                                                                                                                                                                                                                                                |
+| `metagenomes_present`  | The number of metagenomes where the genome was found present, using ≥ 95% sequence identity as a threshold.                                                                                                                                                                                                                                                                                              |
+| `completeness`         | The estimated completeness (%) of the genome.                                                                                                                                                                                                                                                                                                                                                            |
+| `contamination`        | The estimated contamination (%) of the genome.                                                                                                                                                                                                                                                                                                                                                           |
+| `GC`                   | Genome GC content.                                                                                                                                                                                                                                                                                                                                                                                       |
+| `genome_size`          | Number of base pairs in genome.                                                                                                                                                                                                                                                                                                                                                                          |
+| `source`               | Either RefSeq (<https://ftp.ncbi.nlm.nih.gov/genomes/refseq/>) or UHGG (<https://www.ebi.ac.uk/metagenomics/>)                                                                                                                                                                                                                                                                                           |
+| `genome_type`          | The completion level as listed in RefSeq, or MAG (all UHGG genomes).                                                                                                                                                                                                                                                                                                                                     |
+| `cluster975_size`      | Number of genomes in the same cluster of the highest resolution (97.5%).                                                                                                                                                                                                                                                                                                                                 |
+| `cluster95_size`       | Number of genomes in the same coarse cluster (95%).                                                                                                                                                                                                                                                                                                                                                      |
+| `genome_file`          | The name of the FASTA file in the archive **HumGut.tar.gz** from above.                                                                                                                                                                                                                                                                                                                                  |
+| `ftp_download`         | The ftp address from where we downloaded the genome.                                                                                                                                                                                                                                                                                                                                                     |
 
 The tab-separated text file
 
--   **[All\_genomes.tsv](http://arken.nmbu.no/~larssn/humgut/All_genomes.tsv)**
+- **[All_genomes.tsv](https://arken.nmbu.no/~larssn/humgut/All_genomes.tsv)**
 
 lists metadata about all the 381,779 genomes used for obtaining the
 HumGut clusters (381,779 rows). The columns are a subset of those in the
@@ -125,13 +131,13 @@ kraken2 and krakenUniq uses (see below).
 
 Here you can download the two files needed for using the GTDB taxonomy:
 
--   **[gtdb\_names.dmp](http://arken.nmbu.no/~larssn/humgut/gtdb_names.dmp)**
--   **[gtdb\_nodes.dmp](http://arken.nmbu.no/~larssn/humgut/gtdb_nodes.dmp)**
+- **[gtdb_names.dmp](https://arken.nmbu.no/~larssn/humgut/gtdb_names.dmp)**
+- **[gtdb_nodes.dmp](https://arken.nmbu.no/~larssn/humgut/gtdb_nodes.dmp)**
 
 Here you can download the files needed for using the NCBI taxonomy:
 
--   **[ncbi\_names.dmp](http://arken.nmbu.no/~larssn/humgut/ncbi_names.dmp)**
--   **[ncbi\_nodes.dmp](http://arken.nmbu.no/~larssn/humgut/ncbi_nodes.dmp)**
+- **[ncbi_names.dmp](https://arken.nmbu.no/~larssn/humgut/ncbi_names.dmp)**
+- **[ncbi_nodes.dmp](https://arken.nmbu.no/~larssn/humgut/ncbi_nodes.dmp)**
 
 Both these sets of files contain the `HumGut_tax_id` for all HumGut
 genomes. Their parents are the corresponding `gtdbtk_tax_id` or
@@ -285,9 +291,9 @@ bracken-build -d $KRAKEN2 -t 10 -k 35 -l 100
 
 Here we used `10` threads, k-mers of length `35` (same as kraken2) and
 read length `100`. This should add three files to the `$KRAKEN2` folder:
-database.kraken, database.100mers.kraken,
-database.100mers.kmer\_distrib. See the bracken software GitHub site for
-more details: <https://github.com/jenniferlu717/Bracken>. <br> <br>
+database.kraken, database.100mers.kraken, database.100mers.kmer_distrib.
+See the bracken software GitHub site for more details:
+<https://github.com/jenniferlu717/Bracken>. <br> <br>
 
 # Building a krakenUniq database
 
