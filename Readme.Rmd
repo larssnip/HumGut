@@ -37,7 +37,7 @@ If you use this resource, we would ask you to cite our paper:
 ## FASTA files
 The HumGut2 collection contains 31,225 genomes, which is a carefully extracted representative subset from a much larger pool of more than 400,000 genomes to which reads from thousands of human gut metagenomes map. In this compressed archive:
 
-* **[HumGut2.tar.gz](https://arken.nmbu.no/~larssn/humgut/HumGut2.tar.gz)**
+* **[HumGut2.tar](https://arken.nmbu.no/~larssn/humgut/HumGut2.tar)**
 
 you find the compressed FASTA files, one for each genome. All files have Header-lines equipped with the proper text for building a kraken2 database, see sections below for more details on this. This compressed archive is roughly 18GB.
 <br>

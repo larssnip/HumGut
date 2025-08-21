@@ -54,7 +54,7 @@ extracted representative subset from a much larger pool of more than
 400,000 genomes to which reads from thousands of human gut metagenomes
 map. In this compressed archive:
 
-- **[HumGut2.tar.gz](https://arken.nmbu.no/~larssn/humgut/HumGut2.tar.gz)**
+- **[HumGut2.tar](https://arken.nmbu.no/~larssn/humgut/HumGut2.tar)**
 
 you find the compressed FASTA files, one for each genome. All files have
 Header-lines equipped with the proper text for building a kraken2
